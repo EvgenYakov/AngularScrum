@@ -1,0 +1,37 @@
+h1{
+  padding-top: 5px;
+  margin: 0;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+}
+
+.header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  ul{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    li{
+      margin: 0 5px;
+    }
+  }
+}
+
+.nav-link{
+  text-decoration: none;
+  color: black;
+  font: 15px Arial, sans-serif;
+  &:hover{
+    border-radius: 5px;
+    color:  rgba(0, 0, 0, 0.2);
+  }
+}
+.active{
+  color:  rgba(0, 0, 0, 0.2);
+}

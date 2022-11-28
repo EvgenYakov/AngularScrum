@@ -1,0 +1,16 @@
+<div  class="page">
+
+  <div class="form-control">
+
+    <div class="toggle">
+      <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
+        <mat-button-toggle checked value="tgl=true" (click)="switchTrue()">Логин</mat-button-toggle>
+        <mat-button-toggle value="tgl=false" (click)="switchFalse()">Регистрация</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <app-login-form *ngIf="tgl"></app-login-form>
+    <app-register-form *ngIf="!tgl"></app-register-form>
+  </div>
+</div>
+

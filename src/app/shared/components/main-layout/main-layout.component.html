@@ -1,0 +1,25 @@
+<mat-toolbar class="header">
+    <h1 class="nav-item"><a class="nav-link" routerLink="/" style="text-decoration: none;">SCRUM</a></h1>
+    <ul class="header-list">
+      <li  class="nav-item">
+        <a [routerLink]="['backlog',{id:this.id}]" class="nav-link" routerLinkActive="active">
+          Backlog
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['sprints',{id:this.id}]" class="nav-link" routerLinkActive="active">
+          Sprints
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/projects']" class="nav-link">
+          Projects
+        </a>
+      </li>
+      <li  class="nav-item"><a [routerLink]="['/auth']"  class="nav-link" (click)="logout()">Exit</a></li>
+    </ul>
+</mat-toolbar>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

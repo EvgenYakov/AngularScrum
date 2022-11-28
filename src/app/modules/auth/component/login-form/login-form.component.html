@@ -1,0 +1,28 @@
+<form [formGroup]="form" (submit)="login($event)">
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Адрес электронной почты</mat-label>
+    <input formControlName="email" matInput type="email">
+    <mat-error *ngIf="form.get('email').touched && form.get('email').invalid">
+      <mat-error *ngIf="form.get('password').errors['email']">
+        Поле должно быть Email
+      </mat-error>
+      <mat-error *ngIf="form.get('password').errors['required']">
+        Введите email
+      </mat-error>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Пароль</mat-label>
+    <input formControlName="password" type="password" matInput >
+    <mat-error *ngIf="form.get('password').touched && form.get('password').invalid">
+      <mat-error *ngIf="form.get('password').errors['minlength']">
+        Минимальная длина {{form.get('password').errors['minlength']['requiredLength']}},
+        у вас {{form.get('password').errors['minlength']['actualLength']}}
+      </mat-error>
+      <mat-error *ngIf="form.get('password').invalid && form.get('password').errors['required']">
+        Введите пароль
+      </mat-error>
+    </mat-error >
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit" class="btn">Войти</button>
+</form>

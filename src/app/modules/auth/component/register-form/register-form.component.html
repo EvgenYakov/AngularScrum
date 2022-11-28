@@ -1,0 +1,41 @@
+<form [formGroup]="form" (submit)="register($event)">
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Адрес электронной почты</mat-label>
+    <input matInput type="email" formControlName="email">
+    <mat-error *ngIf="form.get('email').touched && form.get('email').invalid">
+      <mat-error *ngIf="form.get('password').errors['email']">
+        Поле должно быть Email
+      </mat-error>
+      <mat-error *ngIf="form.get('password').errors['required']">
+        Введите email
+      </mat-error>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Пароль</mat-label>
+    <input type="password" matInput formControlName="password">
+    <mat-error *ngIf="form.get('password').touched && form.get('password').invalid">
+      <mat-error *ngIf="form.get('password').errors['minlength']">
+        Минимальная длина {{form.get('password').errors['minlength']['requiredLength']}},
+        у вас {{form.get('password').errors['minlength']['actualLength']}}
+      </mat-error>
+      <mat-error *ngIf="form.get('password').invalid && form.get('password').errors['required']">
+        Введите пароль
+      </mat-error>
+    </mat-error >
+
+  </mat-form-field>
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Введите пароль ещё раз</mat-label>
+    <input type="password" matInput formControlName="secondPassword">
+    <mat-error *ngIf="form.get('secondPassword').touched && form.get('secondPassword').invalid">
+      <mat-error *ngIf="form.get('secondPassword').errors['account']">
+        Пароли не совпадают
+      </mat-error>
+      <mat-error *ngIf="form.get('secondPassword').errors['required']">
+        Введите пароль ещё раз
+      </mat-error>
+    </mat-error>
+  </mat-form-field>
+  <button mat-raised-button color="primary" class="btn" [disabled]="form.invalid">Регистрация</button>
+</form>

@@ -1,0 +1,22 @@
+form{
+  animation:advent 0.5s linear;
+  display: flex;
+  flex-direction: column;
+
+  .btn{
+    width: 25%;
+    margin-top: 10px;
+  }
+  .full-width{
+    width: 100%;
+  }
+}
+
+@keyframes advent{
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

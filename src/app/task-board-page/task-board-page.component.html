@@ -1,20 +1,29 @@
 <div class="action-group" cdkDropListGroup>
-    <div class="task-container" cdkDropList>
+  <div class="task-container"
+       cdkDropList
+       [cdkDropListData]="todo"
+       (cdkDropListDropped)="drop($event)">
       <h1>TODO</h1>
-      <div class="task-box" cdkDrag >
-        Drag me around
+        <div class="task-box" *ngFor="let task of todo.tasks;" cdkDrag  [cdkDragData]="task" >
+          <p>{{task.title}}</p>
       </div>
-    </div>
-    <div class="task-container" cdkDropList>
+  </div>
+    <div class="task-container"
+         cdkDropList
+         [cdkDropListData]="doing"
+         (cdkDropListDropped)="drop($event)">
       <h1>DOING</h1>
-      <div class="task-box" cdkDrag   >
-        Drag me around
-      </div>
+        <div class="task-box doing"  *ngFor="let task of doing.tasks;"  cdkDrag [cdkDragData]="task">
+          <p>{{task.title}}</p>
+        </div>
     </div>
-    <div class="task-container" cdkDropList>
-      <h1>DONE</h1>
-      <div class="task-box" cdkDrag >
-        Drag me around
+  <div  class="task-container"
+        cdkDropList
+        [cdkDropListData]="done"
+        (cdkDropListDropped)="drop($event)">
+    <h1>DONE</h1>
+      <div class="task-box done"  *ngFor="let task of done.tasks;" cdkDrag [cdkDragData]="task"  >
+        <p>{{task.title}}</p>
       </div>
-    </div>
+  </div>
 </div>

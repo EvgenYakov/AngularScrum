@@ -1,0 +1,69 @@
+<div class="container" cdkDropListGroup>
+  <div class="sprintsContainer">
+    <mat-card class="card" *ngFor="let sprint of sprints;"
+              [ngClass]="sprint.status=='complete'?'complete':(checkComplete(sprint)?'warnSpr':'')">
+      <mat-card-header class="card-header" >
+        <mat-card-title class="mat-title">
+          {{sprint.title }}
+          <i *ngIf="checkComplete(sprint)">
+            - completed
+          </i>
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{sprint.dateStart.toDateString()+" - "+sprint.dateEnd.toDateString()}}
+        </mat-card-subtitle>
+        <div class="sprint-control">
+          <button mat-stroked-button color="primary" [disabled]="checkComplete(sprint)" (click)="openBoard(sprint._id)" >
+            Open
+          </button>
+          <button mat-stroked-button color="warn" [disabled]="checkComplete(sprint)" (click)="openEditDialog(sprint)" >
+            Edit
+          </button>
+          <button (click)="completeSprint(sprint._id)" [disabled]="checkComplete(sprint)" mat-stroked-button color="accent">
+            Complete
+          </button>
+        </div>
+      </mat-card-header>
+      <mat-card-content cdkDropList
+                        [cdkDropListData]="sprint"
+                        (cdkDropListDropped)="dropTaskToSprint($event)">
+        <p *ngIf="!sprint.tasks.length; else taskslist">
+          Пусто
+        </p>
+        <ng-template #taskslist>
+          <ul class="sprint-task">
+              <div class="example-box"  *ngFor="let task of sprint.tasks"  cdkDrag
+                   [cdkDragData]="task">{{task.title}}</div>
+          </ul>
+        </ng-template>
+      </mat-card-content>
+      <mat-card-footer *ngIf="sprint.freeDays<0" class="warn">
+        <p>Warning: You haven't enough days for complete this sprint:{{sprint.freeDays}}</p>
+      </mat-card-footer>
+    </mat-card>
+        <div class="button-container">
+          <button mat-fab mat-button (click)="openAddDialog()" class="add" color="warn">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+  </div>
+
+  <div class="example-container">
+    <h2>Backlog tasks</h2>
+      <div
+        cdkDropList
+        class="example-list"
+        [cdkDropListData]="tasks"
+        (cdkDropListDropped)="dropTaskFromSprint($event)"
+      >
+        <p *ngIf="!tasks.length; else backlog">
+        пусто
+      </p>
+        <ng-template #backlog>
+          <div class="example-box"  *ngFor="let task of tasks" cdkDrag
+               [cdkDragData]="task" [ngClass]="task.status=='done' ? 'complete': (task.status=='doing' ? 'inProgres' : '') " >{{task.title}}</div>
+        </ng-template>
+      </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

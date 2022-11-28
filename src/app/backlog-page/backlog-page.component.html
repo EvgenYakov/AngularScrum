@@ -1,0 +1,22 @@
+<div class="container">
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let task of tasks" [ngClass]="task.status=='done' ? 'complete': '' ">
+      <mat-expansion-panel-header >
+        <mat-panel-title>
+          {{task.title}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Expiration days-{{task.countDays}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>{{task.description}}</p>
+      <button mat-button (click)="openEditDialog(task)"  color="warn">Изменить</button>
+    </mat-expansion-panel>
+  </mat-accordion>
+  <div class="button-container">
+    <button mat-fab mat-button (click)="openCreateDialog()" color="warn">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
+
