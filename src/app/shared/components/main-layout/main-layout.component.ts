@@ -25,6 +25,8 @@ export class MainLayoutComponent implements OnInit {
   }
 
   logout(){
-    this.authServ.logout()
+    this.authServ.logout().subscribe((res)=>{
+      console.log(res)
+    })
   }
 }

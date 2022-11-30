@@ -38,21 +38,11 @@ export class AuthService {
     return !!this.token
   }
 
-  logout():Observable<AuthResp>{
-    const token = this.jwtHelperService.decodeToken(this.token) || null;
+  logout():Observable<boolean>{
     this.setToken(null);
-    this.router.navigate(['/auth'])
-    if(token){
-      return this.http.
-      post<AuthResp>("/api/auth/logout",{id:token.id},this.httpOptions).pipe(
-        tap(()=>{
-          console.log("sadasd")
-          this.router.navigate(['/auth'])
-        })
-        ,catchError(this.helperService.handleError<AuthResp>("logout user"))
+    return this.http.post<boolean>("/api/auth/logout",this.httpOptions).pipe(
+        catchError(this.helperService.handleError<boolean>("logout user"))
       )
-    }
-    return null
   }
 
   registration(user:User): Observable<any>{
