@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
 import { Observable } from 'rxjs';
 import {AuthService} from "../services/auth.service";
+import {AlertService} from "../services/alert.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,8 @@ import {AuthService} from "../services/auth.service";
 export class AuthGuard implements CanActivate {
   constructor(
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private alertService:AlertService
   ) {}
 
   canActivate(
@@ -24,6 +26,7 @@ export class AuthGuard implements CanActivate {
           loginAgain: true
         }
       })
+      this.alertService.alertMessage("Вы не вошли в систему")
       return false
     }
   }

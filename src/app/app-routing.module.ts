@@ -6,15 +6,16 @@ import {ProjectsPageComponent} from "./projects-page/projects-page.component";
 import {SprintsPageComponent} from "./sprints-page/sprints-page.component";
 import {BacklogPageComponent} from "./backlog-page/backlog-page.component";
 import {TaskBoardPageComponent} from "./task-board-page/task-board-page.component";
+import {AuthGuard} from "./shared/guards/auth.guard";
 
 const routes: Routes = [
 
-      {path:'', redirectTo:'/', pathMatch:'full'},
-      {path:'projects',component:ProjectsPageComponent},
+      {path:'', redirectTo:'/auth', pathMatch:'full'},
+      {path:'projects',component:ProjectsPageComponent, canActivate:[AuthGuard]},
       {path:'project',component:MainLayoutComponent,  children:[
-          {path:'backlog',component:BacklogPageComponent},
-          {path:'sprints',component:SprintsPageComponent},
-          {path:'board/:id',component:TaskBoardPageComponent}
+          {path:'backlog',component:BacklogPageComponent,canActivate:[AuthGuard]},
+          {path:'sprints',component:SprintsPageComponent,canActivate:[AuthGuard]},
+          {path:'board/:id',component:TaskBoardPageComponent,canActivate:[AuthGuard]}
         ]},
   {
     path:'auth', component:LoginPageComponent
@@ -23,6 +24,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers:[AuthGuard]
 })
 export class AppRoutingModule { }

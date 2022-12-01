@@ -8,7 +8,6 @@
         <mat-button-toggle value="tgl=false" (click)="switchFalse()">Регистрация</mat-button-toggle>
       </mat-button-toggle-group>
     </div>
-
     <app-login-form *ngIf="tgl"></app-login-form>
     <app-register-form *ngIf="!tgl"></app-register-form>
   </div>
