@@ -1,5 +1,5 @@
 <mat-dialog-content class="modal-content">
-  <form [formGroup]="form" (submit)="editSprint(form.value)">
+  <form [formGroup]="form" (submit)="editSprint($event)">
     <mat-form-field class="full-width" appearance="fill">
       <mat-label>Введите название спринта</mat-label>
       <input matInput type="text" formControlName="title">

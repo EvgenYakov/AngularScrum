@@ -136,6 +136,7 @@ export class SprintsPageComponent implements OnInit {
     this.sprintService.editSprint(sprint).subscribe((res)=>{
       this.sprints.splice(this.sprints.findIndex((a)=>a._id===res._id),1,res)
     })
+    this.dialog.closeAll();
   }
 
   openBoard(id:string){

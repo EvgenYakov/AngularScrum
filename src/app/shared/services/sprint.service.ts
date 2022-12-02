@@ -46,7 +46,12 @@ export class SprintService {
 
 
   public editSprint(sprint:Sprint):Observable<Sprint>{
-    return this.http.put<Sprint>("/api/sprint/"+sprint._id, sprint, this.httpOptions).pipe(
+    return this.http.put<Sprint>("/api/sprint/"+sprint._id, sprint, this.httpOptions).pipe(map((sprint:Sprint)=>({
+      ...sprint,
+      freeDays: this.getNumberOfDays(sprint.dateStart, sprint.dateEnd),
+      dateEnd: new Date(sprint.dateEnd),
+      dateStart: new Date(sprint.dateStart),
+    })),
       catchError(this.helperService.handleError<Sprint>('edit Sprint'))
     )
   }
