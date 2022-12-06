@@ -34,13 +34,19 @@ export class SprintsPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params )=>{
       if(params['id']){
+        if(params['id']==null){
+          this.router.navigate(['/projects'])
+          this.alert.alertMessage("Выберите существующий проект")
+        }
         this.projectService.setActiveProjectId = params['id']
         this.taskServ.getTask(params['id']).subscribe((res:Task[])=>{
-          this.tasks = res.filter((t)=>{
-            return !t.sprintId})
+          if(res == undefined){
+            this.router.navigate(['/projects'])
+            this.alert.alertMessage("Выберите существующий проект")
+          }
+          this.tasks = res.filter((t)=>{return !t.sprintId})
         })
         this.sprintService.getSprints(params['id']).subscribe((res:Sprint[])=>{
-          console.log(res)
           this.sprints = res
         })
       }
@@ -55,7 +61,7 @@ export class SprintsPageComponent implements OnInit {
         this.alert.alertMessage("Sprint complete")
         return
       }
-      event.container.data.freeDays -= event.item.data.countDays;
+      event.container.data.sumSP -= event.item.data.storyPoints;
       transferArrayItem(
         event.previousContainer.data,
         event.container.data.tasks,
@@ -73,7 +79,7 @@ export class SprintsPageComponent implements OnInit {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      event.previousContainer.data.freeDays += event.item.data.countDays;
+      event.previousContainer.data.sumSP += event.item.data.storyPoints;
       transferArrayItem(
         event.previousContainer.data.tasks,
         event.container.data,

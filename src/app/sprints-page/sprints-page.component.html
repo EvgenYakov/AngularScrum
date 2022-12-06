@@ -37,9 +37,6 @@
           </ul>
         </ng-template>
       </mat-card-content>
-      <mat-card-footer *ngIf="sprint.freeDays<0" class="warn">
-        <p>Warning: You haven't enough days for complete this sprint:{{sprint.freeDays}}</p>
-      </mat-card-footer>
     </mat-card>
         <div class="button-container">
           <button mat-fab mat-button (click)="openAddDialog()" class="add" color="warn">

@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {SprintService} from "../shared/services/sprint.service";
 import {TaskService} from "../shared/services/task.service";
 import {AlertService} from "../shared/services/alert.service";
+import {ProjectService} from "../shared/services/project.service";
 
 @Component({
   selector: 'app-task-board-page',
@@ -23,7 +24,8 @@ export class TaskBoardPageComponent implements OnInit {
     private route:ActivatedRoute,
     private sprintService: SprintService,
     private taskService: TaskService,
-    private alert:AlertService
+    private alert:AlertService,
+    private projectService:ProjectService
 ) { }
 
   ngOnInit(): void {
@@ -31,6 +33,10 @@ export class TaskBoardPageComponent implements OnInit {
       if(params['id']){
         this.sprintService.getSprint(params['id']).subscribe((res)=>{
           this.sprint = res;
+          const now:Date = new Date;
+          if(res==undefined || res.dateEnd <  now || res.status == "complete" ){
+            this.router.navigate(['/project','sprints',{id:this.projectService.getActiveProjectId}])
+          }
           res.tasks.forEach((task:Task)=>{
             if(task.status == 'todo'){
               this.todo.tasks.push(task)

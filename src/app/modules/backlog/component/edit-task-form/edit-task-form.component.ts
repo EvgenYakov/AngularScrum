@@ -30,7 +30,7 @@ export class EditTaskFormComponent implements OnInit {
       "title":[this.task.title,[Validators.required]],
       "description":[this.task.description],
       "status":[this.task.status],
-      "countDays":[this.task.countDays],
+      "storyPoints":[this.task.storyPoints],
     })
   }
 
@@ -41,7 +41,7 @@ export class EditTaskFormComponent implements OnInit {
       title:this.form.value.title,
       description:this.form.value.description,
       status:this.data.task.status,
-      countDays:this.form.value.countDays
+      storyPoints:this.form.value.storyPoints
     }
     this.data.editTaskAction(task)
   }

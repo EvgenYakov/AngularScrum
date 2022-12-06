@@ -5,8 +5,9 @@ import {TaskService} from "../shared/services/task.service";
 import {Project, Task} from "../shared/interfaces";
 import {EditTaskFormComponent} from "../modules/backlog/component/edit-task-form/edit-task-form.component";
 import {Subject, takeUntil} from "rxjs";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ProjectService} from "../shared/services/project.service";
+import {AlertService} from "../shared/services/alert.service";
 
 @Component({
   selector: 'app-backlog-page',
@@ -16,6 +17,7 @@ import {ProjectService} from "../shared/services/project.service";
 export class BacklogPageComponent implements OnInit, OnDestroy {
   tasks: Task[]=[]
   projectId: string;
+  message:string;
 
   private destroy$: Subject<void> = new Subject();
 
@@ -23,7 +25,9 @@ export class BacklogPageComponent implements OnInit, OnDestroy {
     private dialog:MatDialog,
     public taskService: TaskService,
     private projectService:ProjectService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private alerService:AlertService
   ) { }
 
   ngOnInit(): void {
@@ -34,7 +38,12 @@ export class BacklogPageComponent implements OnInit, OnDestroy {
         this.taskService.getTask(params['id']).pipe(
           takeUntil(this.destroy$)
         ).subscribe((res:Task[])=>{
-          this.tasks = res
+          if(res == undefined){
+            this.router.navigate(['/projects'])
+            this.alerService.alertMessage("Выберите существующий проект")
+          }
+          this.tasks = res.filter((task)=>!task.sprintId)
+          if (res.length>0 && this.tasks.length ==0) this.message ="Все задания находятся в спринтах"
         })
       }
     })
@@ -67,6 +76,7 @@ export class BacklogPageComponent implements OnInit, OnDestroy {
   addTask(task:Task):void{
     this.taskService.addTask(task,this.projectId).subscribe((task)=>{
       this.tasks.push(task)
+      this.message=""
     })
     this.dialog.closeAll()
   }

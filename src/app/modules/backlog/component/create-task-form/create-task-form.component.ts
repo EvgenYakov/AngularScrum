@@ -13,7 +13,7 @@ import {Status} from "../../../../shared/enums";
 })
 export class CreateTaskFormComponent implements OnInit {
   form:FormGroup;
-  private task:Task={status:Status.todo,title:"",description:"",countDays:2};
+  private task:Task={status:Status.todo,title:"",description:"",storyPoints:2};
 
   constructor(
     public dialogRef: MatDialogRef<ProjectsPageComponent>,
@@ -32,7 +32,7 @@ export class CreateTaskFormComponent implements OnInit {
       "title":[this.task.title,[Validators.required]],
       "description":[this.task.description],
       "status":[this.task.status],
-      "countDays":[this.task.countDays],
+      "storyPoints":[this.task.storyPoints],
     })
   }
 

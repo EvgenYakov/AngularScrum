@@ -18,7 +18,7 @@ export interface Task{
   title:string;
   description:string;
   status:Status;
-  countDays:number;
+  storyPoints:number;
   sprintId?:string;
 }
 
@@ -29,7 +29,7 @@ export interface Sprint{
   dateStart:Date;
   dateEnd:Date;
   status?:string;
-  freeDays?:number
+  sumSP?:number
 }
 
 export interface arrayStatus{

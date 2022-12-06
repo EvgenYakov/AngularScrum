@@ -22,6 +22,6 @@
       </mat-chip-list>
     </mat-form-field>
 
-    <button mat-button type="submit" color="warn" (click)="addProject()">Добавить</button>
+    <button mat-button type="submit" color="warn" [disabled]="this.form.invalid" (click)="addProject()">Добавить</button>
   </form>
 </mat-dialog-content>

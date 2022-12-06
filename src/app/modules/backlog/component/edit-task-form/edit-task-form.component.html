@@ -5,14 +5,14 @@
       <input matInput type="text" formControlName="title">
     </mat-form-field>
     <mat-form-field class="full-width" appearance="fill">
-      <mat-label>Количество дней за которые задание будет выполнено</mat-label>
-      <input type="number" matInput formControlName="countDays" min="0" max="100">
+      <mat-label>Story points</mat-label>
+      <input type="number" matInput formControlName="storyPoints" min="0" max="100">
     </mat-form-field>
     <mat-form-field class="full-width" appearance="fill">
       <mat-label>Описание</mat-label>
       <textarea type="number" matInput formControlName="description"></textarea>
     </mat-form-field>
-    <button mat-button type="submit" color="primary">Изменить</button>
+    <button mat-button type="submit" [disabled]="this.form.invalid" color="primary">Изменить</button>
     <button mat-button color="warn" type="button" (click)="this.data.deleteTaskAction(this.data.task._id)">Удалить</button>
   </form>
 </mat-dialog-content>

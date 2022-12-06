@@ -1,4 +1,5 @@
 <div class="container">
+  <h2 *ngIf="message">{{message}}</h2>
   <mat-accordion>
     <mat-expansion-panel *ngFor="let task of tasks" [ngClass]="task.status=='done' ? 'complete': '' ">
       <mat-expansion-panel-header >
@@ -6,7 +7,7 @@
           {{task.title}}
         </mat-panel-title>
         <mat-panel-description>
-          Expiration days-{{task.countDays}}
+          Story points-{{task.storyPoints}}
         </mat-panel-description>
       </mat-expansion-panel-header>
       <p>{{task.description}}</p>
