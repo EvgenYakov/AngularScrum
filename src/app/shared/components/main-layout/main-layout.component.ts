@@ -21,6 +21,7 @@ export class MainLayoutComponent implements OnInit {
   ngOnInit(): void {
     this.projectService.activeProjectId.subscribe((id)=>{
       this.id = id;
+
     })
   }
 

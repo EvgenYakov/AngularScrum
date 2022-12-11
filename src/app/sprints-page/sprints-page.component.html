@@ -4,7 +4,7 @@
               [ngClass]="sprint.status=='complete'?'complete':(checkComplete(sprint)?'warnSpr':'')">
       <mat-card-header class="card-header" >
         <mat-card-title class="mat-title">
-          {{sprint.title }}
+          {{sprint.title}}
           <i *ngIf="checkComplete(sprint)">
             - completed
           </i>

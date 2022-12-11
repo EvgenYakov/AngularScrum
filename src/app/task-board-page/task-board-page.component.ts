@@ -31,12 +31,13 @@ export class TaskBoardPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params)=>{
       if(params['id']){
-        this.sprintService.getSprint(params['id']).subscribe((res)=>{
+        this.sprintService.getSprint(params['id']).subscribe((res:Sprint)=>{
           this.sprint = res;
           const now:Date = new Date;
           if(res==undefined || res.dateEnd <  now || res.status == "complete" ){
             this.router.navigate(['/project','sprints',{id:this.projectService.getActiveProjectId}])
           }
+          this.projectService.setActiveProjectId = res.projectId
           res.tasks.forEach((task:Task)=>{
             if(task.status == 'todo'){
               this.todo.tasks.push(task)
@@ -47,7 +48,6 @@ export class TaskBoardPageComponent implements OnInit {
             if(task.status == 'done'){
               this.done.tasks.push(task)
             }
-
           })
         })
       }

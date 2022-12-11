@@ -9,7 +9,7 @@ import {ProjectService} from "./project.service";
   providedIn: 'root'
 })
 export class SprintService {
-  httpOptions = {
+   httpOptions = {
     headers: new HttpHeaders({ "Accept": "application/json", "Content-Type": "application/json" })
   };
 
@@ -58,7 +58,6 @@ export class SprintService {
       map((res:Sprint[])=>{
         return res.map((sprint)=>({
           ...sprint,
-          sumSP: sprint.tasks.reduce((sum,a)=>sum+=a.storyPoints,0),
           dateEnd: new Date(sprint.dateEnd),
           dateStart: new Date(sprint.dateStart),
         }))
@@ -71,6 +70,7 @@ export class SprintService {
     return this.http.get<Sprint>("api/sprint/getSprint/"+sprintId, this.httpOptions).pipe(
       map((sprint:Sprint)=>({
         ...sprint,
+        sumSP: sprint.tasks.reduce((sum,a)=>sum+=a.storyPoints,0),
         dateEnd: new Date(sprint.dateEnd),
         dateStart: new Date(sprint.dateEnd)
       })),

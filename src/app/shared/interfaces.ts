@@ -29,7 +29,8 @@ export interface Sprint{
   dateStart:Date;
   dateEnd:Date;
   status?:string;
-  sumSP?:number
+  sumSP?:number;
+  projectId?:string
 }
 
 export interface arrayStatus{

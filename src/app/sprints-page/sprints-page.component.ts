@@ -33,17 +33,14 @@ export class SprintsPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params )=>{
+
       if(params['id']){
-        if(params['id']==null){
-          this.router.navigate(['/projects'])
-          this.alert.alertMessage("Выберите существующий проект")
-        }
-        this.projectService.setActiveProjectId = params['id']
         this.taskServ.getTask(params['id']).subscribe((res:Task[])=>{
           if(res == undefined){
             this.router.navigate(['/projects'])
             this.alert.alertMessage("Выберите существующий проект")
           }
+          if (!this.projectService.getActiveProjectId) this.projectService.setActiveProjectId = params['id']
           this.tasks = res.filter((t)=>{return !t.sprintId})
         })
         this.sprintService.getSprints(params['id']).subscribe((res:Sprint[])=>{
@@ -61,13 +58,21 @@ export class SprintsPageComponent implements OnInit {
         this.alert.alertMessage("Sprint complete")
         return
       }
-      event.container.data.sumSP -= event.item.data.storyPoints;
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data.tasks,
-        event.previousIndex,
-        event.currentIndex,
-      );
+      if(event.previousContainer.data.tasks){
+        transferArrayItem(
+          event.previousContainer.data.tasks,
+          event.container.data.tasks,
+          event.previousIndex,
+          event.currentIndex,
+        );
+      }else{
+        transferArrayItem(
+          event.previousContainer.data,
+          event.container.data.tasks,
+          event.previousIndex,
+          event.currentIndex,
+        );
+      }
       this.sprintService.addTaskToSprint(event.container.data._id,event.item.data._id).subscribe((res)=>{
         this.alert.alertMessage("Task added")
       })

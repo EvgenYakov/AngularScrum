@@ -34,7 +34,6 @@ export class BacklogPageComponent implements OnInit, OnDestroy {
     this.route.params.subscribe((params )=>{
       if(params['id']){
         this.projectId = params['id']
-        this.projectService.setActiveProjectId = params['id']
         this.taskService.getTask(params['id']).pipe(
           takeUntil(this.destroy$)
         ).subscribe((res:Task[])=>{
@@ -42,6 +41,7 @@ export class BacklogPageComponent implements OnInit, OnDestroy {
             this.router.navigate(['/projects'])
             this.alerService.alertMessage("Выберите существующий проект")
           }
+          if (!this.projectService.getActiveProjectId) this.projectService.setActiveProjectId = params['id']
           this.tasks = res.filter((task)=>!task.sprintId)
           if (res.length>0 && this.tasks.length ==0) this.message ="Все задания находятся в спринтах"
         })
