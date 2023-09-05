@@ -7,7 +7,7 @@ import {MAT_SNACK_BAR_DATA} from "@angular/material/snack-bar";
     <span [style]="{color:data.color}">
         {{ data.message }} 📁
     </span>
-
+    
   `,
   styles: [`
     //.snack-bar {

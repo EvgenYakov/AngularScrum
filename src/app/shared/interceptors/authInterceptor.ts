@@ -22,8 +22,12 @@ export class AuthInterceptor implements HttpInterceptor{
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(this.addAuthTokens(req)).pipe(catchError((err:HttpErrorResponse)=>{
+    this.addAuthTokens(req)
+    console.log(req);
+    return next.handle(req).pipe(catchError((err:HttpErrorResponse)=>{
+      console.log(err);
       if (err.status === 403){
+
         this.auth.logout().subscribe(()=>{
           this.router.navigate(['/auth'])
         })
